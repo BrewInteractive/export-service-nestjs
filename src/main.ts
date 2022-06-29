@@ -5,10 +5,15 @@ import config from './utils/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  if (config.isDev) {
+  if (config().environment === 'dev') {
     const swaggerConfig = new DocumentBuilder()
       .setTitle('Export Service')
-      .setVersion(config.version)
+      .setVersion(config().version)
+      .addSecurity('ApiKey', {
+        type: 'apiKey',
+        name: 'x-api-key',
+        in: 'header',
+      })
       .build();
     const document = SwaggerModule.createDocument(app, swaggerConfig);
     SwaggerModule.setup('swagger', app, document);
