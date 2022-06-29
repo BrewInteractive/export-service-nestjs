@@ -5,7 +5,6 @@ import config from './utils/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log(config().cors || true);
   app.enableCors({
     origin: config().cors || true,
     credentials: true,
