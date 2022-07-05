@@ -34,7 +34,7 @@ async function bootstrap() {
 
   initSwagger(app);
   initValidationPipe(app);
-  await app.listen(3000);
+  await app.listen(config().port);
 }
 
 bootstrap();
