@@ -1,6 +1,7 @@
 import { HtmlToPdf, HtmlToPdfType } from '../../../../html-to-pdf/dto';
 import { IHtmlToPdfService } from '../base/html-to-pdf';
 import puppeteer from 'puppeteer';
+import config from '../../../config';
 
 export class PuppeteerService implements IHtmlToPdfService {
   generatePDFAsync(options: HtmlToPdf): Promise<Buffer> {
@@ -9,7 +10,16 @@ export class PuppeteerService implements IHtmlToPdfService {
   }
 
   private async _htmlToPdf(options: HtmlToPdf): Promise<Buffer> {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: config().puppeteer.executablePath,
+      args: [
+        '--no-sandbox',
+        '--headless',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+      ],
+    });
     const page = await browser.newPage();
     await page.setContent(options.html);
     const buffer = await page.pdf({
@@ -21,7 +31,16 @@ export class PuppeteerService implements IHtmlToPdfService {
   }
 
   private async _webUrlToPdf(options: HtmlToPdf): Promise<Buffer> {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: config().puppeteer.executablePath,
+      args: [
+        '--no-sandbox',
+        '--headless',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+      ],
+    });
     const page = await browser.newPage();
     await page.goto(options.url, {
       waitUntil: 'load',

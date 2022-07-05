@@ -8,4 +8,7 @@ export default () => ({
   version: '1.0.0',
   apiKey: process.env.API_KEY,
   cors: process.env.CORS,
+  puppeteer: {
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+  },
 });
