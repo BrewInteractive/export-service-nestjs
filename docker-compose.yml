@@ -1,0 +1,14 @@
+version: "3"
+services:
+  serve:
+    container_name: export-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - ${PORT}
+    restart: always
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
