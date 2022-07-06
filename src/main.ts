@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import config from './utils/config';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import * as bodyParser from 'body-parser';
 
 function initSwagger(app: INestApplication) {
   if (config().environment === 'dev') {
@@ -36,6 +37,8 @@ async function bootstrap() {
     origin: config().cors || true,
     credentials: true,
   });
+
+  app.use(bodyParser.json({ limit: config().bodySizeLimit }));
 
   setGlobalPrefix(app);
   initSwagger(app);

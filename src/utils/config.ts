@@ -13,4 +13,5 @@ export default () => ({
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
   },
   globalPrefix: process.env.GLOBAL_PREFIX,
+  bodySizeLimit: process.env.BODY_SIZE_LIMIT || '5mb',
 });
