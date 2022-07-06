@@ -12,4 +12,5 @@ export default () => ({
   puppeteer: {
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
   },
+  globalPrefix: process.env.GLOBAL_PREFIX,
 });

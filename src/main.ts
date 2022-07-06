@@ -24,6 +24,11 @@ function initValidationPipe(app: INestApplication) {
   app.useGlobalPipes(new ValidationPipe());
 }
 
+function setGlobalPrefix(app: INestApplication) {
+  const globalPrefix = config().globalPrefix;
+  if (globalPrefix) app.setGlobalPrefix(globalPrefix);
+}
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -32,6 +37,7 @@ async function bootstrap() {
     credentials: true,
   });
 
+  setGlobalPrefix(app);
   initSwagger(app);
   initValidationPipe(app);
   await app.listen(config().port);
