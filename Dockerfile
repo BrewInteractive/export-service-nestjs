@@ -1,24 +1,23 @@
-FROM node:16-alpine
+FROM node:16-alpine AS build
+WORKDIR /usr/src/app
+
+RUN apk add --no-cache chromium 
+
 COPY . .
+
+RUN yarn install
+RUN yarn build
+
+FROM node:16-alpine
+WORKDIR /app
+
+COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/package.json ./
+COPY --from=build /usr/src/app/node_modules ./node_modules
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    harfbuzz \
-    ca-certificates \
-    ttf-freefont \
-    nodejs \
-    yarn
+RUN apk add --no-cache chromium 
 
-RUN addgroup -S pptruser && adduser -S -G pptruser pptruser \
-    && mkdir -p /home/pptruser/Downloads /app \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /app
-
-RUN yarn install
-RUN yarn build
 CMD ["yarn", "start:prod"]
