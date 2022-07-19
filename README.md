@@ -41,7 +41,7 @@ $ yarn test:cov
 ```
 
 ### Docker Compose
-By creating the `docker-compose.yml` file, it is possible to deploy the project with `docker` commands below.
+By creating the `docker-compose.yml` file, it is possible to deploy the project with `docker` commands below. You can visit the [Docker Hub Repository](https://hub.docker.com/r/brewery/export-service/tags) to review the versions.
 ```yml
 version: "3"
 services:
@@ -87,7 +87,7 @@ The parameters that can be sent in the body are in the table below.
 
 REQ
 ```json
-// POST {{endpoint}}/{{GLOBAL_PREFIX}}/html-to-pdf
+// POST {{ENDPOINT}}/{{GLOBAL_PREFIX}}/html-to-pdf
 {
     "url": "https://google.com.tr",
     "type": "url",
@@ -97,7 +97,7 @@ REQ
 ```
 
 ```json
-// POST {{endpoint}}/{{GLOBAL_PREFIX}}/html-to-pdf
+// POST {{ENDPOINT}}/{{GLOBAL_PREFIX}}/html-to-pdf
 {
     "html": "<h1>Hello Word</h1>",
     "type": "html",
