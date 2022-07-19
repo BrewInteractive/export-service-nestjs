@@ -1,73 +1,110 @@
-<p align="center">
+<div align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+  <h1>EXPORT SERVICE</h1>
+</div>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
+It is a service created for Export processes. The project was written with [Nest](https://github.com/nestjs/nest) Framework.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## Instructions
+### Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
-## Running the app
+### Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
 
-## Test
+### Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
 ```
 
-## Support
+### Docker Compose
+By creating the `docker-compose.yml` file, it is possible to deploy the project with `docker` commands below.
+```yml
+version: "3"
+services:
+  serve:
+    container_name: export-service
+    image: brewery/export-service:latest
+    expose:
+      - ${PORT}
+    restart: always
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+$ docker-compose up -d
+```
+## Environment Variables
 
-## Stay in touch
+| Variable Name           | Description                                                                                             | Required | Default  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------- | -------- | -------- |
+| ENVIRONMENT             | Specifies the environment name. If the environment name is given as `dev`, `Swagger` operates actively. | NO       | dev      |
+| CORS                    | Website endpoints can be defined for Cors safety.                                                       | NO       | *        |
+| PORT                    | It is determined which port will be deploy.                                                             | NO       | 3000     |
+| GLOBAL_PREFIX           | Allows to add additional pathname to the service end.                                                   | NO       | -        |
+| BODY_SIZE_LIMIT         | Specifies the maximum size of the data that will come from the body during the request.                 | NO       | 5mb      |
+| API_KEY                 | It allows to add an api key control to the service for security during service use.                     | NO       | -        |
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Request Examples
 
+### HTML to PDF
+
+The parameters that can be sent in the body are in the table below.
+
+| Key       | Description                                                                            | Required | Type            | Defult      |
+| --------- | -------------------------------------------------------------------------------------- | -------- | --------------- | ----------- |
+| fileName  | Created PDF file represents its name.                                                  | YES      | string          | -           |
+| type      | Determines the type of transformation of the incoming data.                            | YES      | enum(HTML, URL) | -           |
+| html      | HTML string to be converted to PDF is sent in format.                                  | NO       | string          | -           |
+| url       | The HTML response that comes with the request for GET is converted to PDF.             | NO       | string          | -           |
+| format    | Specifies the PDF page size.                                                           | NO       | enum(letter, legal, tabloid, ledger, a0, a1, a2, a3, a4, a5, a6)          | a4          |
+
+REQ
+```json
+// POST {{endpoint}}/{{GLOBAL_PREFIX}}/html-to-pdf
+{
+    "url": "https://google.com.tr",
+    "type": "url",
+    "fileName": "hello-word",
+    "format": "a3",
+}
+```
+
+```json
+// POST {{endpoint}}/{{GLOBAL_PREFIX}}/html-to-pdf
+{
+    "html": "<h1>Hello Word</h1>",
+    "type": "html",
+    "fileName": "hello-word",
+    "format": "a2",
+}
+```
 ## License
 
-Nest is [MIT licensed](LICENSE).
+Export Service is [MIT licensed](LICENSE).
