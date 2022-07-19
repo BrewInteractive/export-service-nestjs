@@ -28,3 +28,4 @@ jobs:
         with:
           push: true
           tags: brewery/export-service:latest, brewery/export-service:${{ env.RELEASE_VERSION }}
+          platforms: linux/amd64,linux/arm64
