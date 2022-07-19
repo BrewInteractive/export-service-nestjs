@@ -13,12 +13,7 @@ export class PuppeteerService implements IHtmlToPdfService {
     const browser = await puppeteer.launch({
       headless: true,
       executablePath: config().puppeteer.executablePath,
-      args: [
-        '--no-sandbox',
-        '--headless',
-        '--disable-gpu',
-        '--disable-dev-shm-usage',
-      ],
+      args: ['--no-sandbox', '--headless'],
     });
     const page = await browser.newPage();
     await page.setContent(options.html);
@@ -34,12 +29,7 @@ export class PuppeteerService implements IHtmlToPdfService {
     const browser = await puppeteer.launch({
       headless: true,
       executablePath: config().puppeteer.executablePath,
-      args: [
-        '--no-sandbox',
-        '--headless',
-        '--disable-gpu',
-        '--disable-dev-shm-usage',
-      ],
+      args: ['--no-sandbox', '--headless'],
     });
     const page = await browser.newPage();
     await page.goto(options.url, {
