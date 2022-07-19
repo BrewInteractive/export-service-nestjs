@@ -11,21 +11,21 @@ import {
 } from 'class-validator';
 
 export class HtmlToPdf {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ default: 'file-name' })
   @IsNotEmpty()
   @IsString()
   @IsDefined()
   @Matches('^[a-zA-Z0-9_-]*$')
   fileName!: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ default: 'html' })
   @IsNotEmpty()
   @IsString()
   @IsDefined()
   @IsEnum(HtmlToPdfType)
   type!: HtmlToPdfType;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ default: '<h1>Hello Word</h1>' })
   @ValidateIf((o) => o.type === HtmlToPdfType.HTML)
   @IsDefined()
   html?: string;
@@ -35,7 +35,7 @@ export class HtmlToPdf {
   @IsDefined()
   url?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ default: 'a4' })
   @IsString()
   @IsDefined()
   @IsEnum(PdfFormat)
