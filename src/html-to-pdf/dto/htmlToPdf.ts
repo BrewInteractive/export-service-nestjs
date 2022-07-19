@@ -8,7 +8,6 @@ import {
   ValidateIf,
   IsEnum,
   Matches,
-  IsEmpty,
 } from 'class-validator';
 
 export class HtmlToPdf {
