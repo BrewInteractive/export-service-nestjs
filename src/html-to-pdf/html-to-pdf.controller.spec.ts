@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HtmlToPdfController } from './html-to-pdf.controller';
 import { HtmlToPdfService } from './html-to-pdf.service';
 import { HTML_TO_PDF_PROVIDE, PuppeteerService } from '../utils/services';
-import { HtmlToPdf, HtmlToPdfType } from './dto';
+import { HtmlToPdf, HtmlToPdfType, PdfFormat, ResponseType } from './dto';
 import { createMock } from '@golevelup/ts-jest';
 import { Response } from 'express';
 
@@ -38,25 +38,55 @@ describe('HtmlToPdfController', () => {
     expect(service).toBeDefined();
   });
 
-  it('The sent HTML must be converted to PDF', async () => {
+  it('The sent HTML must be converted to PDF. Response type STREAM.', async () => {
     const options: HtmlToPdf = {
       html: '<h1>Hello Word</h1>',
       type: HtmlToPdfType.HTML,
       fileName: 'hello-word',
+      format: PdfFormat.A5,
+      responseType: ResponseType.STREAM,
     };
     expect(
-      await controller.htmlToPdf(options, mockResponseObject()),
-    ).toBeUndefined();
+      (await controller.htmlToPdf(options, mockResponseObject())) instanceof
+        Buffer,
+    ).toEqual(true);
   });
 
-  it('The sent Website Url must be converted to PDF', async () => {
+  it('The sent Website Url must be converted to PDF. Response type STREAM.', async () => {
     const options: HtmlToPdf = {
       url: 'https://google.com.tr',
       type: HtmlToPdfType.URL,
       fileName: 'hello-word',
+      format: PdfFormat.A4,
+      responseType: ResponseType.STREAM,
     };
     expect(
-      await controller.htmlToPdf(options, mockResponseObject()),
-    ).toBeUndefined();
+      (await controller.htmlToPdf(options, mockResponseObject())) instanceof
+        Buffer,
+    ).toEqual(true);
+  });
+
+  it('The sent HTML must be converted to PDF. Response type BASE64.', async () => {
+    const options: HtmlToPdf = {
+      html: '<h1>Hello Word</h1>',
+      type: HtmlToPdfType.HTML,
+      fileName: 'hello-word',
+      format: PdfFormat.A5,
+      responseType: ResponseType.BASE64,
+    };
+    const response = await controller.htmlToPdf(options, mockResponseObject());
+    expect(response).toHaveProperty('file');
+  });
+
+  it('The sent Website Url must be converted to PDF. Response type BASE64.', async () => {
+    const options: HtmlToPdf = {
+      url: 'https://google.com.tr',
+      type: HtmlToPdfType.URL,
+      fileName: 'hello-word',
+      format: PdfFormat.A4,
+      responseType: ResponseType.BASE64,
+    };
+    const response = await controller.htmlToPdf(options, mockResponseObject());
+    expect(response).toHaveProperty('file');
   });
 });

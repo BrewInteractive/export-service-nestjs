@@ -83,7 +83,8 @@ The parameters that can be sent in the body are in the table below.
 | type      | Determines the type of transformation of the incoming data.                            | YES      | enum(HTML, URL) | -           |
 | html      | HTML string to be converted to PDF is sent in format.                                  | NO       | string          | -           |
 | url       | The HTML response that comes with the request for GET is converted to PDF.             | NO       | string          | -           |
-| format    | Specifies the PDF page size.                                                           | NO       | enum(letter, legal, tabloid, ledger, a0, a1, a2, a3, a4, a5, a6)          | a4          |
+| format    | Specifies the PDF page size.                                                           | YES      | enum(letter, legal, tabloid, ledger, a0, a1, a2, a3, a4, a5, a6)          | -          |
+| responseType    | Specifies the type that the service will return.                                 | YES      | enum(stream, base64)          | -         |
 
 REQ
 ```json

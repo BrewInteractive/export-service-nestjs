@@ -1,6 +1,7 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { HtmlToPdfType } from './htmlToPdfType';
 import { PdfFormat } from './pdfFormat';
+import { ResponseType } from './responseType';
 import {
   IsDefined,
   IsNotEmpty,
@@ -40,4 +41,10 @@ export class HtmlToPdf {
   @IsDefined()
   @IsEnum(PdfFormat)
   format?: PdfFormat;
+
+  @ApiPropertyOptional({ default: 'stream' })
+  @IsString()
+  @IsDefined()
+  @IsEnum(ResponseType)
+  responseType?: ResponseType;
 }

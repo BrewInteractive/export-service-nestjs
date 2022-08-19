@@ -1,15 +1,19 @@
-import { HtmlToPdf, HtmlToPdfType } from '../../../../html-to-pdf/dto';
 import { IHtmlToPdfService } from '../base/html-to-pdf';
 import puppeteer from 'puppeteer';
 import config from '../../../config';
+import {
+  HtmlToPdf,
+  HtmlToPdfType,
+  ResponseType,
+} from '../../../../html-to-pdf/dto';
 
 export class PuppeteerService implements IHtmlToPdfService {
-  generatePDFAsync(options: HtmlToPdf): Promise<Buffer> {
+  generatePDFAsync(options: HtmlToPdf): Promise<Buffer | string> {
     if (options.type == HtmlToPdfType.HTML) return this._htmlToPdf(options);
     else return this._webUrlToPdf(options);
   }
 
-  private async _htmlToPdf(options: HtmlToPdf): Promise<Buffer> {
+  private async _htmlToPdf(options: HtmlToPdf): Promise<Buffer | string> {
     const browser = await puppeteer.launch({
       headless: true,
       executablePath: config().puppeteer.executablePath,
@@ -22,10 +26,12 @@ export class PuppeteerService implements IHtmlToPdfService {
       printBackground: true,
     });
     await browser.close();
+    if (options.responseType == ResponseType.BASE64)
+      return buffer.toString('base64');
     return buffer;
   }
 
-  private async _webUrlToPdf(options: HtmlToPdf): Promise<Buffer> {
+  private async _webUrlToPdf(options: HtmlToPdf): Promise<Buffer | string> {
     const browser = await puppeteer.launch({
       headless: true,
       executablePath: config().puppeteer.executablePath,
@@ -40,6 +46,8 @@ export class PuppeteerService implements IHtmlToPdfService {
       printBackground: true,
     });
     await browser.close();
+    if (options.responseType == ResponseType.BASE64)
+      return buffer.toString('base64');
     return buffer;
   }
 }
