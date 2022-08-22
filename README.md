@@ -94,6 +94,7 @@ REQ
     "type": "url",
     "fileName": "hello-word",
     "format": "a3",
+    "responseType": "stream"
 }
 ```
 
@@ -104,6 +105,7 @@ REQ
     "type": "html",
     "fileName": "hello-word",
     "format": "a2",
+    "responseType": "stream"
 }
 ```
 ## License
