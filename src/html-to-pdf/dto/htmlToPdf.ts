@@ -19,7 +19,7 @@ export class HtmlToPdf {
   @Matches('^[a-zA-Z0-9_-]*$')
   fileName!: string;
 
-  @ApiPropertyOptional({ default: 'html' })
+  @ApiPropertyOptional({ default: 'Html' })
   @IsNotEmpty()
   @IsString()
   @IsDefined()
@@ -36,13 +36,13 @@ export class HtmlToPdf {
   @IsDefined()
   url?: string;
 
-  @ApiPropertyOptional({ default: 'a4' })
+  @ApiPropertyOptional({ default: 'A4' })
   @IsString()
   @IsDefined()
   @IsEnum(PdfFormat)
   format?: PdfFormat;
 
-  @ApiPropertyOptional({ default: 'stream' })
+  @ApiPropertyOptional({ default: 'Stream' })
   @IsString()
   @IsDefined()
   @IsEnum(ResponseType)

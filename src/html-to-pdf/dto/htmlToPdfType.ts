@@ -1,4 +1,4 @@
 export enum HtmlToPdfType {
-  HTML = 'html',
-  URL = 'url',
+  HTML = 'Html',
+  URL = 'Url',
 }

@@ -1,4 +1,4 @@
 export enum ResponseType {
-  STREAM = 'stream',
-  BASE64 = 'base64',
+  STREAM = 'Stream',
+  BASE64 = 'Base64',
 }
