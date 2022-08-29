@@ -80,11 +80,11 @@ The parameters that can be sent in the body are in the table below.
 | Key       | Description                                                                            | Required | Type            | Defult      |
 | --------- | -------------------------------------------------------------------------------------- | -------- | --------------- | ----------- |
 | fileName  | Created PDF file represents its name.                                                  | YES      | string          | -           |
-| type      | Determines the type of transformation of the incoming data.                            | YES      | enum(HTML, URL) | -           |
+| type      | Determines the type of transformation of the incoming data.                            | YES      | enum(Html, Url) | -           |
 | html      | HTML string to be converted to PDF is sent in format.                                  | NO       | string          | -           |
 | url       | The HTML response that comes with the request for GET is converted to PDF.             | NO       | string          | -           |
-| format    | Specifies the PDF page size.                                                           | YES      | enum(letter, legal, tabloid, ledger, a0, a1, a2, a3, a4, a5, a6)          | -          |
-| responseType    | Specifies the type that the service will return.                                 | YES      | enum(stream, base64)          | -         |
+| format    | Specifies the PDF page size.                                                           | YES      | enum(Letter, Legal, Tabloid, Ledger, A0, A1, A2, A3, A4, A5, A6)          | -          |
+| responseType    | Specifies the type that the service will return.                                 | YES      | enum(Stream, Base64)          | -         |
 
 REQ
 ```json
