@@ -1,113 +1,37 @@
-<div align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-  <h1>EXPORT SERVICE</h1>
-</div>
+<p  align="center">
+<a  href="http://brewww.com/"  target="_blank"><img  src="https://github.com/BrewInteractive/export-service-nestjs/blob/main/Brew-Logo-Small.png?raw=true"  width="300"  alt="Brew Logo"  /></a>
+</p>
 
+<h1  align="center">Export Service</h1>
 
-## Description
-It is a service created for Export processes. The project was written with [Nest](https://github.com/nestjs/nest) Framework.
+<p align="center">Export Service is a Nest.js based rest api designed to provide export operations by Brew Interactive. </p>
+<p align="center">
+<a href="https://sonarcloud.io/summary/overall?id=BrewInteractive_export-service-nestjs" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=BrewInteractive_export-service-nestjs&metric=alert_status"/></a>
+<a href="https://sonarcloud.io/summary/overall?id=BrewInteractive_export-service-nestjs" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=BrewInteractive_export-service-nestjs&metric=coverage"/></a>
+</p>
+<p align="center">
+<a href="https://www.instagram.com/brew_interactive/" target="_blank"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
+<a href="https://www.linkedin.com/company/brew-interactive/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Linkedin" /></a>
+<a href="https://twitter.com/BrewInteractive" target="_blank"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" /></a>
+</p>
 
-## Instructions
-### Installation
+## Purpose
 
-```bash
-$ yarn install
-```
+An export service simplifies the extraction and download of data from a system, allowing users to save information in various file formats for external use.
 
-### Running the app
+## Documents
 
-```bash
-# development
-$ yarn start
+- [Export Service Installation and Deployment](https://github.com/BrewInteractive/export-service-nestjs/blob/main/docs/install_and_deploy.md)
+  - [Deploying With Docker Compose](https://github.com/BrewInteractive/export-service-nestjs/blob/main/docs/install_and_deploy.md#deploying-with-docker-compose)
+- [Local Development Instructions](https://github.com/BrewInteractive/export-service-nestjs/blob/main/docs/local_development.md)
+  - [Running Tests](https://github.com/BrewInteractive/export-service-nestjs/blob/main/docs/local_development.md#running-tests)
+- [Environment Variables](https://github.com/BrewInteractive/export-service-nestjs/blob/main/docs/environment_variables.md)
+- [API Reference](https://github.com/BrewInteractive/export-service-nestjs/blob/main/docs/api_reference.md)
 
-# watch mode
-$ yarn start:dev
+## Conclusion
 
-# production mode
-$ yarn start:prod
-```
+These instructions will help you start, configure, test, and use the export-service-nestjs project. The project can be used in any project that requires export functions.
 
-### Test
-
-```bash
-# unit tests
-$ yarn test
-
-# e2e tests
-$ yarn test:e2e
-
-# test coverage
-$ yarn test:cov
-```
-
-### Docker Compose
-By creating the `docker-compose.yml` file, it is possible to deploy the project with `docker` commands below. You can visit the [Docker Hub Repository](https://hub.docker.com/r/brewery/export-service/tags) to review the versions.
-```yml
-version: "3"
-services:
-  serve:
-    container_name: export-service
-    image: brewery/export-service:latest
-    expose:
-      - ${PORT}
-    restart: always
-    ports:
-      - "${PORT}:${PORT}"
-    env_file:
-      - .env
-```
-
-```bash
-$ docker-compose up -d
-```
-## Environment Variables
-
-| Variable Name           | Description                                                                                             | Required | Default  |
-| ----------------------- | ------------------------------------------------------------------------------------------------------- | -------- | -------- |
-| ENVIRONMENT             | Specifies the environment name. If the environment name is given as `dev`, `Swagger` operates actively. | NO       | dev      |
-| CORS                    | Website endpoints can be defined for Cors safety.                                                       | NO       | *        |
-| PORT                    | It is determined which port will be deploy.                                                             | NO       | 3000     |
-| GLOBAL_PREFIX           | Allows to add additional pathname to the service end.                                                   | NO       | -        |
-| BODY_SIZE_LIMIT         | Specifies the maximum size of the data that will come from the body during the request.                 | NO       | 5mb      |
-| API_KEY                 | It allows to add an api key control to the service for security during service use.                     | NO       | -        |
-
-## Request Examples
-
-### HTML to PDF
-
-The parameters that can be sent in the body are in the table below.
-
-| Key       | Description                                                                            | Required | Type            | Defult      |
-| --------- | -------------------------------------------------------------------------------------- | -------- | --------------- | ----------- |
-| fileName  | Created PDF file represents its name.                                                  | YES      | string          | -           |
-| type      | Determines the type of transformation of the incoming data.                            | YES      | enum(Html, Url) | -           |
-| html      | HTML string to be converted to PDF is sent in format.                                  | NO       | string          | -           |
-| url       | The HTML response that comes with the request for GET is converted to PDF.             | NO       | string          | -           |
-| format    | Specifies the PDF page size.                                                           | YES      | enum(Letter, Legal, Tabloid, Ledger, A0, A1, A2, A3, A4, A5, A6)          | -          |
-| responseType    | Specifies the type that the service will return.                                 | YES      | enum(Stream, Base64)          | -         |
-
-REQ
-```json
-// POST {{ENDPOINT}}/{{GLOBAL_PREFIX}}/html-to-pdf
-{
-    "url": "https://google.com.tr",
-    "type": "url",
-    "fileName": "hello-word",
-    "format": "a3",
-    "responseType": "stream"
-}
-```
-
-```json
-// POST {{ENDPOINT}}/{{GLOBAL_PREFIX}}/html-to-pdf
-{
-    "html": "<h1>Hello Word</h1>",
-    "type": "html",
-    "fileName": "hello-word",
-    "format": "a2",
-    "responseType": "stream"
-}
-```
 ## License
 
 Export Service is [MIT licensed](LICENSE).
