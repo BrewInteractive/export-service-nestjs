@@ -1,4 +1,4 @@
-# Authentication Service Installation and Deployment
+# Export Service Installation and Deployment
 
 To customize the service, review the [environment variables](https://github.com/BrewInteractive/export-service-nestjs/blob/main/docs/environment_variables.md) document.
 
