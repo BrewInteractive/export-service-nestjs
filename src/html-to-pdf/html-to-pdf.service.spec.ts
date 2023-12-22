@@ -1,9 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { HtmlToPdfService } from './html-to-pdf.service';
-import { HtmlToPdf } from './dto/htmlToPdf';
-import { HtmlToPdfType } from './dto/htmlToPdfType';
 import { HTML_TO_PDF_PROVIDE, PuppeteerService } from '../utils/services';
 import { PdfFormat, ResponseType } from './dto';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import { HtmlToPdf } from './dto/html-to-pdf';
+import { HtmlToPdfService } from './html-to-pdf.service';
+import { HtmlToPdfType } from './dto/html-to-pdf-type';
 
 describe('HtmlToPdfService', () => {
   let service: HtmlToPdfService;
@@ -57,7 +58,6 @@ describe('HtmlToPdfService', () => {
       html: '<h1>Hello Word</h1>',
       type: HtmlToPdfType.HTML,
       fileName: 'hello-word',
-      format: PdfFormat.A4,
       responseType: ResponseType.BASE64,
     };
     const response = await service.generatePDFAsync(options);
