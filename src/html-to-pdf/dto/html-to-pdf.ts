@@ -1,15 +1,16 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
-import { HtmlToPdfType } from './htmlToPdfType';
-import { PdfFormat } from './pdfFormat';
-import { ResponseType } from './responseType';
 import {
   IsDefined,
+  IsEnum,
   IsNotEmpty,
   IsString,
-  ValidateIf,
-  IsEnum,
   Matches,
+  ValidateIf,
 } from 'class-validator';
+
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { HtmlToPdfType } from './html-to-pdf-type';
+import { PdfFormat } from './pdf-format';
+import { ResponseType } from './response-type';
 
 export class HtmlToPdf {
   @ApiPropertyOptional({ default: 'file-name' })

@@ -1,7 +1,7 @@
 import { ApiKeyGuard } from '../utils/guards';
 import { ApiSecurity } from '@nestjs/swagger';
 import { HtmlToPdfService } from './html-to-pdf.service';
-import { HtmlToPdf } from './dto/htmlToPdf';
+import { HtmlToPdf } from './dto/html-to-pdf';
 import { Response } from 'express';
 import { Controller, UseGuards, Post, Body, Res } from '@nestjs/common';
 import { ResponseType } from './dto';

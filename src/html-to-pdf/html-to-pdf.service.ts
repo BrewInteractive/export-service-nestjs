@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { HtmlToPdf } from './dto/htmlToPdf';
+import { HtmlToPdf } from './dto/html-to-pdf';
 import { HTML_TO_PDF_PROVIDE, IHtmlToPdfService } from '../utils/services';
 import { PdfFormat } from './dto';
 
